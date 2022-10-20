@@ -1,51 +1,49 @@
 ---
-import { useStore } from '@nanostores/vue'
-import { menu, MENU } from '../store/menu'
-
-const $menu = useStore(menu)
-console.log($menu.value[MENU.MainMenu])
+import Navigation from './Navigation.vue'
 ---
+<header>
+	<div class="container header-container">
+		<div class="icons-left">Search</div>
+		<div class="logo-container">
+			<img srcset="//cdn.shopify.com/s/files/1/0583/3424/9152/files/First_Avenue_Decor_Logo_-_1_de88089d-8658-4a50-b596-4446f7306cbb_520x.png?v=1647890053 1x, //cdn.shopify.com/s/files/1/0583/3424/9152/files/First_Avenue_Decor_Logo_-_1_de88089d-8658-4a50-b596-4446f7306cbb_520x@2x.png?v=1647890053 2x" src="//cdn.shopify.com/s/files/1/0583/3424/9152/files/First_Avenue_Decor_Logo_-_1_de88089d-8658-4a50-b596-4446f7306cbb_520x.png?v=1647890053" loading="lazy" class="header__heading-logo" width="2285" height="139" alt="First Avenue Decor" />
+		</div>
+		<div class="icons-right">Search</div>
+	</div>
+	<Navigation />
+</header>
 
-<h1>Hello World</h1>
-
-<style>
-	.link-card {
-		list-style: none;
+<style lang="scss">
+	header {
 		display: flex;
-		padding: 0.15rem;
-		background-color: white;
-		background-image: var(--accent-gradient);
-		background-size: 400%;
-		border-radius: 0.5rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
+	.header-container {
+		display: grid;
+		grid-template-columns: 20px minmax(1fr, 500) 20px;
+		grid-template-rows: auto;
+		grid-template-areas: 
+			"icons-left logo icons-right";
 	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+	.icons-left {
+		grid-area: icons-left;
+		justify-self: start;
 	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
+
+	.logo-container {
+		grid-area: logo;
+		justify-self: center;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
 	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
+
+	.icons-right {
+		grid-area: icons-right;
+		justify-self: end;
 	}
 </style>
