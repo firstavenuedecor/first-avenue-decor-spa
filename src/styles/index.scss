@@ -1,10 +1,13 @@
 :root {
-  --accent: 124, 58, 237;
-  --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+  --color-primary: #B2B2A2;
+  --color-secondary: #6A6A6A;
+  --color-text: #656666;
 }
 
 html {
-  font-family: system-ui, sans-serif;
+  font-family: Jost, system-ui, sans-serif;
+  font-weight: 200;
+  color: var(--color-text);
   background-color: #F6F6F6;
 }
 
@@ -21,4 +24,13 @@ code {
 .container {
   width: 100%;
   max-width: 1200px;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
