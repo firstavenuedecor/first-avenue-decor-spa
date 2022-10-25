@@ -1,9 +1,8 @@
 import { map, action } from 'nanostores'
+import { shopifyApi } from '../helpers/shopify-api'
 
-export interface IShop {
-  name: string,
-  description: string
-}
+import { API_PATH } from '../types'
+import type { IShop } from '../types'
 
 export const shop = map<IShop>({
   name: '',
@@ -11,29 +10,8 @@ export const shop = map<IShop>({
 })
 
 const setShop = action(shop, 'get', async (shop) => {
-  const res = await fetch(import.meta.env.PUBLIC_SHOPIFY_API_PATH, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/graphql',
-      'X-Shopify-Storefront-Access-Token': import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-    },
-    body: `
-      {
-        shop {
-          description 
-          name
-        }
-      }
-    `
-  }).then(res => {
-    if (res.status === 200) {
-      return res.json()
-    }
-    
-    return Promise.reject(res)
-  }).catch(e => console.error(e))
-
-  const { name, description } = res.data.shop
+  const res = await shopifyApi<IShop>(API_PATH.Shop)
+  const { name, description } = res.data
   shop.set({ name, description })
 })
 

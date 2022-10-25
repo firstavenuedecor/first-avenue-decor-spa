@@ -1,0 +1,17 @@
+---
+import { useStore } from '@nanostores/vue'
+import { collections, getCollection } from '../../store/collections'
+import Layout from '../../layouts/Layout.astro'
+
+const { handle } = Astro.params
+const $collections = useStore(collections)
+const collection = await getCollection(handle)
+console.log(collection)
+---
+<Layout title="Fine Timeless Style for Homes Everywhere">
+  <div>{handle}</div>
+</Layout>
+
+<style lang="scss">
+
+</style>

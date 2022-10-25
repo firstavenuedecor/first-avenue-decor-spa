@@ -1,17 +1,8 @@
 import { map, action } from 'nanostores'
+import { shopifyApi } from '../helpers/shopify-api'
 
-export interface IMenuItem {
-  title: string
-  type: string
-  url: string
-  items?: IMenuItem[]
-}
-
-export interface IMenu {
-  handle: string
-  title: string
-  items: IMenuItem[]
-}
+import { API_PATH } from '../types'
+import type { IMenu } from '../types'
 
 export enum MENU {
   MainMenu = 'main-menu',
@@ -21,44 +12,8 @@ export enum MENU {
 export const menu = map<{[key: string]: IMenu}>({})
 
 export const setMenu = action(menu, 'get', async (menu, handle) => {
-  const res = await fetch(import.meta.env.PUBLIC_SHOPIFY_API_PATH, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/graphql',
-      'X-Shopify-Storefront-Access-Token': import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-    },
-    body: `
-      {
-        menu(handle: "${handle}") {
-          handle
-          title
-          items {
-            items {
-              items {
-                title
-                type
-                url
-              }
-              title
-              type
-              url
-            }
-            title
-            type
-            url
-          }
-        }
-      }  
-  `
-  }).then(res => {
-    if (res.status === 200) {
-      return res.json()
-    }
-    
-    return Promise.reject(res)
-  }).catch(e => console.error(e))
-
-  menu.setKey(handle, res.data.menu)
+  const res = await shopifyApi<IMenu>(API_PATH.Menu, `handle=${handle}`)
+  menu.setKey(handle, res.data)
 })
 
 setMenu(MENU.MainMenu)
