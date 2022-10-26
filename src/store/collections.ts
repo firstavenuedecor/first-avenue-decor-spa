@@ -7,8 +7,21 @@ import type { ICollection } from '../types'
 
 export const collections = map<{[key: string]: ICollection}>({})
 
-export const getCollection = action(collections, 'get', async (collections, handle) => {
-  const res = await shopifyApi<ICollection>(API_PATH.Collection, `handle=${handle}`, `numProducts=20`)
+export const getCollection = action(collections, 'get', async (collections, handle, {afterCursor, beforeCursor, numProducts = 20} = {}) => {
+  let cursor = ''
+  if (afterCursor) {
+    cursor = `afterCursor=${afterCursor}`
+  } else if (beforeCursor) {
+    cursor = `beforeCursor=${beforeCursor}`
+  }
+
+  const res = await shopifyApi<ICollection>(
+    API_PATH.Collection,
+    `handle=${handle}`,
+    `numProducts=${numProducts}`,
+    cursor,
+  )
+
   collections.setKey(handle, res.data)
 
   return res.data

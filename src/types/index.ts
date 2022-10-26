@@ -1,10 +1,3 @@
-export interface IPageInfo {
-  hasNextPage: boolean
-  hasPreviousPage: boolean
-  startCursor: string
-  endCurcor: string
-}
-
 export interface IApiResponse<T> {
   data: T
   pageInfo: {}
@@ -16,6 +9,14 @@ export enum API_PATH {
   Shop = '/shop',
   Menu = '/menu',
   Collection = '/collection',
+}
+
+/* SHOPIFY */
+export interface IPageInfo {
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  startCursor: string
+  endCursor: string
 }
 
 /* ENDPOINTS */
@@ -45,6 +46,34 @@ export interface IImage {
   url: string
 }
 
+export interface ICollectionProduct {
+  availableForSale: boolean
+  compareAtPriceRange: {
+    maxVariantPrice: {
+      amount: string
+    }
+    minVariantPrice:  {
+      amount: string
+    }
+  }
+  image: {
+    nodes: IImage[]
+  }
+  handle: string
+  priceRange: {
+    maxVariantPrice: {
+      amount: string
+    }
+    minVariantPrice: {
+      amount: string
+    }
+  }
+  productType: string
+  title: string
+  totalInventory: string
+  vendor: string
+}
+
 export interface ICollection {
   description: string
   descriptionHtml: string
@@ -55,29 +84,8 @@ export interface ICollection {
     title: string
   }
   title: string
-  products: Array<{
-    availableForSale: boolean
-    compareAtPriceRange: {
-      maxVariantPrice: {
-        amount: number
-      }
-      minVariantPrice:  {
-        amount: number
-      }
-    }
-    featuredImage: IImage
-    handle: string
-    priceRange: {
-      maxVariantPrice: {
-        amount: number
-      }
-      minVariantPrice: {
-        amount: number
-      }
-    }
-    productType: string
-    title: string
-    totalInventory: string
-    vendor: string
-  }>
+  products: {
+    nodes: ICollectionProduct[]
+    pageInfo: IPageInfo
+  }
 }

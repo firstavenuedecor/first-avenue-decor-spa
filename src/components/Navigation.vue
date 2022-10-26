@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	nav {
 		display: flex;
 		justify-content: center;

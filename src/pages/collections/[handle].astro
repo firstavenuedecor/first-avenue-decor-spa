@@ -1,17 +1,37 @@
 ---
 import { useStore } from '@nanostores/vue'
-import { collections, getCollection } from '../../store/collections'
+import { getCollection } from '../../store/collections'
 import Layout from '../../layouts/Layout.astro'
+import ProductCard from '../../components/ProductCard.vue'
+import Pagination from '../../components/Pagination.vue'
 
 const { handle } = Astro.params
-const $collections = useStore(collections)
-const collection = await getCollection(handle)
-console.log(collection)
+const searchParams = Astro.url.searchParams
+
+const afterCursor = searchParams.get('after') ?? ''
+const beforeCursor = searchParams.get('before') ?? ''
+const numProducts = searchParams.get('n') ?? 20
+const collection = await getCollection(handle, { afterCursor, beforeCursor, numProducts })
+
 ---
-<Layout title="Fine Timeless Style for Homes Everywhere">
-  <div>{handle}</div>
+<Layout title={collection.description}>
+  <div class="container">
+    <h1>{collection.title}</h1>
+    <div class="products">
+      {collection.products.nodes.map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+    <Pagination handle={collection.handle} page-info={collection.products.pageInfo} search-params={searchParams} />
+  </div>
 </Layout>
 
 <style lang="scss">
-
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-row-gap: 36px;
+  grid-column-gap: 16px;
+  margin-bottom: 64px;
+}
 </style>
