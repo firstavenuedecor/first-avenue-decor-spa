@@ -1,3 +1,2 @@
 [functions]
-  external_node_modules = ["astro"]
   node_bundler = "esbuild"
