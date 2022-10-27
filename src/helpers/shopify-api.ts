@@ -2,6 +2,7 @@ import type { IApiResponse, API_PATH } from '../types'
 
 export async function shopifyApi<T>(path: API_PATH, ...queries: string[]): Promise<IApiResponse<T>> {
   const storefrontAccessToken = import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+  console.log(storefrontAccessToken)
   if (!storefrontAccessToken) {
     throw new Error('Storefront Access Token environment variable not set.')
   }
@@ -11,7 +12,7 @@ export async function shopifyApi<T>(path: API_PATH, ...queries: string[]): Promi
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+      'X-Shopify-Storefront-Access-Token': 'asdfasdfasdf',
     },
   })
   .then(res => res.json())
