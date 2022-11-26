@@ -1,7 +1,6 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly PUBLIC_SHOPIFY_API_PATH: string
   readonly PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: string
 }
 
