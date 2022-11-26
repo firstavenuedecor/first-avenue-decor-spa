@@ -12,7 +12,8 @@
     "strict": true,
     "importsNotUsedAsValues": "error",
     "jsx": "preserve",
-    "types": ["@astrojs/image/client"]
+    "types": ["@astrojs/image/client"],
+    "skipLibCheck": true
   },
   "extends": "astro/tsconfigs/strict"
 }
