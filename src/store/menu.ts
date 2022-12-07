@@ -5,7 +5,7 @@ import { API_PATH } from '../types'
 import type { IMenu } from '../types'
 
 export enum MENU {
-  MainMenu = 'main-menu',
+  MainMenu = 'main-menu-2',
   Footer = 'footer',
 }
 
