@@ -12,7 +12,7 @@ export enum MENU {
 export const menu = map<{[key: string]: IMenu}>({})
 
 export const setMenu = action(menu, 'get', async (menu, handle) => {
-  const res = await shopifyApi<IMenu>(API_PATH.Menu, `handle=${handle}`)
+  const res = await shopifyApi<IMenu>(API_PATH.Menu, `handle=${handle}`, 'with_images')
   menu.setKey(handle, res.data)
 })
 

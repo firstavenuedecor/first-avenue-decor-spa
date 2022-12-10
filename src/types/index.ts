@@ -9,6 +9,7 @@ export enum API_PATH {
   Shop = '/shop',
   Menu = '/menu',
   Collection = '/collection',
+  CollectionImage = '/collection/image',
 }
 
 /* SHOPIFY */
@@ -32,6 +33,7 @@ export interface IMenuItem {
   title: string
   type: string
   url: string
+  image?: IImage
 }
 
 export interface IMenu {
@@ -40,7 +42,7 @@ export interface IMenu {
   items: IMenuItem[]
 }
 
-// Collection]
+// Collection
 export interface IImage {
   altText: string
   url: string
@@ -89,3 +91,5 @@ export interface ICollection {
     pageInfo: IPageInfo
   }
 }
+
+export type ICollectionImage = Pick<ICollection, 'image'>

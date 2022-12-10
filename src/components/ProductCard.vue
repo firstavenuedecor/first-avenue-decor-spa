@@ -1,7 +1,7 @@
 <template lang="pug">
-a(:href="'/products/' + product.handle").product-card
+a.product-card(:href="'/products/' + product.handle")
   .image-container
-    .image
+    .image(:class="{ 'has-secondary-image': product.images.nodes[1] }")
       img.featured-image(:src="resizeImage(product.images.nodes[0].url)")
       img.secondary-image(v-if="product.images.nodes[1]" :src="resizeImage(product.images.nodes[1].url)")
       .chip(v-if="isOnSale")
@@ -94,7 +94,7 @@ export default {
     padding-bottom: 100%;
   }
 
-  &:hover {
+  &.has-secondary-image:hover {
     .featured-image {
       opacity: 0;
     }
