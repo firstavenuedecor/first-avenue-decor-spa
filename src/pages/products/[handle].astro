@@ -1,12 +1,49 @@
 ---
+import { useStore } from '@nanostores/vue'
+import { getProduct } from '../../store/products'
 import Layout from '../../layouts/Layout.astro'
+import ProductMedia from '../../components/products/product-media.vue'
 
-const { handle } = Astro.params;
+const { handle } = Astro.params
+
+const product = await getProduct(handle)
+console.log(product)
 ---
 <Layout title="Fine Timeless Style for Homes Everywhere">
-  <div>{handle}</div>
+  <div class="product">
+    <div class="product-media-container">
+      <ProductMedia />
+    </div>
+    <div class="purchase-area-container"></div>
+    <div class="similar-products-container"></div>
+  </div>
 </Layout>
 
 <style lang="scss">
+.product {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  column-gap: 32px;
+  row-gap: 48px;
+  justify-items: stretch;
+  grid-template-areas: 
+    "product-media purchase-area"
+    "similar-products similar-products";
+}
 
+.product-media-container {
+  background-color: yellow; height: 300px;
+  grid-area: product-media;
+}
+
+.purchase-area-container {
+  background-color: green; height: 300px;
+  grid-area: purchase-area;
+}
+
+.similar-products-container {
+  background-color: pink; height: 300px;
+  grid-area: similar-products;
+}
 </style>

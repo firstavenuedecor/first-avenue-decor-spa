@@ -10,14 +10,27 @@ export enum API_PATH {
   Menu = '/menu',
   Collection = '/collection',
   CollectionImage = '/collection/image',
+  Product = '/product',
 }
 
-/* SHOPIFY */
+/* SHOPIFY General*/
 export interface IPageInfo {
   hasNextPage: boolean
   hasPreviousPage: boolean
   startCursor: string
   endCursor: string
+}
+
+export interface IMoney {
+  amount: number
+  currencyCode: string
+}
+
+export interface IMetafield {
+  namespace: string
+  key: string
+  type: string // https://shopify.dev/apps/metafields/types
+  value: string
 }
 
 /* ENDPOINTS */
@@ -93,3 +106,19 @@ export interface ICollection {
 }
 
 export type ICollectionImage = Pick<ICollection, 'image'>
+
+// Product
+export interface IProduct {
+  availableForSale: boolean
+  compareAtPriceRange: {
+    maxVariantPrice: IMoney
+    minVariantPrice: IMoney
+  }
+  description: string
+  descriptionHtml: string
+  handle: string
+  id: string
+  metafields: {
+    [key: string]: IMetafield
+  }[]
+}
