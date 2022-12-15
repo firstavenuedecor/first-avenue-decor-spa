@@ -12,8 +12,7 @@
 </template>
 
 <script lang="ts">
-import { useStore } from '@nanostores/vue'
-import { cart } from '../../store/cart'
+import { cartAdd } from '../../store/cart'
 
 import ProductPrice from './ProductPrice.vue'
 import VInput from '../forms/Input.vue'
@@ -47,8 +46,8 @@ export default {
   },
 
   methods: {
-    addToCart() {
-      console.log('add to cart')
+    async addToCart() {
+      await cartAdd(this.product.variants[0].id, 1)
     }
   }
 }

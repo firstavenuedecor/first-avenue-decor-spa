@@ -13,11 +13,10 @@ const metafields = [
 ]
 
 export const getProduct = action(products, 'get', async (products, handle) => {
-  const res = await shopifyApiGet<IProduct>(
-    API_PATH.Product,
-    `handle=${handle}`,
-    `metafields=${metafields.join(',')}`,
-  )
+  const res = await shopifyApiGet<IProduct>(API_PATH.Product, {
+    handle,
+    metafields: metafields.join(',')
+  })
 
   products.setKey(handle, res.data)
 

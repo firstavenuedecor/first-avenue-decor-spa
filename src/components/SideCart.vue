@@ -19,13 +19,10 @@ export default {
 
   async beforeMount() {
     await cartGet()
-    this.loading = false
-    console.log('mount2', this.cart)
   },
 
   data() {
     return {
-      loading: true,
       cart: useStore(cart),
     }
   },
