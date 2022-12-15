@@ -1,5 +1,5 @@
 import { map, action } from 'nanostores'
-import { shopifyApi } from '../helpers/shopify-api'
+import { shopifyApiGet } from '../helpers/shopify-api'
 
 import { API_PATH } from '../types'
 
@@ -15,7 +15,7 @@ export const getCollection = action(collections, 'get', async (collections, hand
     cursor = `beforeCursor=${beforeCursor}`
   }
 
-  const res = await shopifyApi<ICollection>(
+  const res = await shopifyApiGet<ICollection>(
     API_PATH.Collection,
     `handle=${handle}`,
     `numProducts=${numProducts}`,

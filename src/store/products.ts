@@ -1,5 +1,5 @@
 import { map, action } from 'nanostores'
-import { shopifyApi } from '../helpers/shopify-api'
+import { shopifyApiGet } from '../helpers/shopify-api'
 
 import { API_PATH } from '../types'
 
@@ -13,7 +13,7 @@ const metafields = [
 ]
 
 export const getProduct = action(products, 'get', async (products, handle) => {
-  const res = await shopifyApi<IProduct>(
+  const res = await shopifyApiGet<IProduct>(
     API_PATH.Product,
     `handle=${handle}`,
     `metafields=${metafields.join(',')}`,

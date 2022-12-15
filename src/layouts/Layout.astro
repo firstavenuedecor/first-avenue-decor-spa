@@ -3,6 +3,7 @@ import { allTasks } from 'nanostores'
 import { useStore } from '@nanostores/vue'
 import { shop } from '../store/shop'
 import Header from '../components/Header.astro'
+import SideCart from '../components/SideCart.vue'
 	
 export interface Props {
 	title: string
@@ -22,7 +23,7 @@ const { title, description = $shop.value.description } = Astro.props
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{$shop.value.name} | {title}</title>
+		<title>{title} | {$shop.value.name}</title>
 		<meta name="description" content={description}>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300,500&display=swap" rel="stylesheet">	
@@ -30,6 +31,7 @@ const { title, description = $shop.value.description } = Astro.props
 	<body>
 		<Header />
 		<slot />
+		<SideCart client:idle />
 	</body>
 </html>
 <style is:global>

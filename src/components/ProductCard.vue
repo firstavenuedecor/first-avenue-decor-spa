@@ -8,17 +8,14 @@ a.product-card(:href="'/products/' + product.handle")
         .is-on-sale(v-if="isOnSale") Sale
   .vendor {{ product.vendor }}
   .title {{ product.title }}
-  .prices
-    .from(v-if="hasPriceRange") From
-    .price(:class="{ 'strikethrough': isOnSale }") {{ formatPrice(product.priceRange.minVariantPrice.amount) }}
-    .sale-price(v-if="isOnSale") {{ formatPrice(product.compareAtPriceRange.minVariantPrice.amount) }}
+  ProductPrice(:product="product")
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
 import resizeShopifyImage from '../helpers/resize-shopify-image'
-import formatPrice from '../helpers/format-price'
+import ProductPrice from './products/ProductPrice.vue'
 
+import type { PropType } from 'vue'
 import type { ICollectionProduct } from '../types'
 
 export default {
@@ -30,6 +27,7 @@ export default {
   },
 
   components: {
+    ProductPrice,
     Image,
   },
 
@@ -43,21 +41,11 @@ export default {
     isOnSale(): boolean {
       return this.product.compareAtPriceRange.minVariantPrice.amount != '0.0'
     },
-
-    hasPriceRange(): boolean {
-      return this.product.priceRange.minVariantPrice.amount != this.product.priceRange.maxVariantPrice.amount
-    },
   },
 
   methods: {
-    formatPrice,
-
     resizeImage(src: string): string {
       return resizeShopifyImage(src, 300, '', false)
-    },
-
-    getSalePrice() {
-
     },
   }
 }
@@ -146,28 +134,5 @@ export default {
 
 .title {
   margin-bottom: 6px;
-}
-
-.prices {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-
-  .sale-price, .price, .from {
-    font-size: 1.1rem;
-  }
-
-  .from {
-    margin-right: 4px;
-  }
-
-  .price {
-    margin-right: 8px;
-
-    &.strikethrough {
-      color: var(--color-gray);
-      text-decoration: line-through;
-    }
-  }
 }
 </style>

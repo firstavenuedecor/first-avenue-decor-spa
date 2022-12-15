@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "dev:local-api": "npm run dev -- --API_HOST=http://localhost:5000",
     "dev:netlify": "netlify dev",
     "start": "astro dev",
     "build": "astro build",
