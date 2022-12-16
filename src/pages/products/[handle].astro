@@ -11,7 +11,7 @@ const product = await getProduct(handle)
 <Layout title={product.title}>
   <div class="product">
     <div class="product-media-container">
-      <ProductMedia product={product} />
+      <ProductMedia client:load product={product} />
     </div>
     <div class="purchase-area-container">
       <ProductPurchaseArea client:load product={product} />
@@ -42,12 +42,10 @@ const product = await getProduct(handle)
 }
 
 .product-media-container {
-  background-color: yellow; height: 300px;
   grid-area: product-media;
 }
 
 .purchase-area-container {
-  border: 1px solid green;
   grid-area: purchase-area;
 }
 
