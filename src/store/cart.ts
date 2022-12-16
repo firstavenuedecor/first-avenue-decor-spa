@@ -19,16 +19,14 @@ export const cartGet = action(cart, 'cartGet', async (cart) => {
 })
 
 export const cartCreate = action(cart, 'cartCreate', async (cart) => {
-  if (cartCreatePromise) {
-    return cartCreatePromise
+  if (!cartCreatePromise) {
+    cartCreatePromise = new Promise(async (resolve) => {
+      const res = await shopifyApiPost<ICart>(API_PATH.Cart)
+      window.localStorage.setItem('cart_id', res.data.id)
+      cart.set(res.data)
+      resolve()
+    })
   }
-
-  cartCreatePromise = new Promise(async (resolve) => {
-    const res = await shopifyApiPost<ICart>(API_PATH.Cart)
-    window.localStorage.setItem('cart_id', res.data.id)
-    cart.set(res.data)
-    resolve()
-  })
 
   await cartCreatePromise.then(() => cartCreatePromise = null)
 })

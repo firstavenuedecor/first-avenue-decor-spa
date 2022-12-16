@@ -7,8 +7,10 @@
   template(v-if="product.availableForSale")
     .qty
       VInput(v-model="qty") Quantity
+    .above-add-to-cart(v-if="product.metafields['slots.above_add_to_cart']") {{ product.metafields['slots.above_add_to_cart'].value }}
     .add-to-cart
       VButton(@click="addToCart") Add to Cart
+    .shipping-details(v-if="product.metafields['shipping.details']") {{ product.metafields['shipping.details'].value }}
 </template>
 
 <script lang="ts">
