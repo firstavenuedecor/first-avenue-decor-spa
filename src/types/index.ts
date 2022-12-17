@@ -152,7 +152,7 @@ export interface IProductVariant {
   selectedOptions: {
     name: string
     value: string
-  }
+  }[]
   sku: string
   title: string
   weight: number

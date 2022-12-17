@@ -33,7 +33,6 @@ const metafields = [
   'product.material_2',
   'product.material_3',
   'product.material_4',
-
   'shipping.details',
   'backorder.details',
   'slots.above_add_to_cart',

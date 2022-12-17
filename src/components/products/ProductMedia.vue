@@ -18,9 +18,10 @@
 
 <script lang="ts">
 import resizeShopifyImage from '../../helpers/resize-shopify-image'
+import { messages, MessageType } from '../../store/messages'
 
 import type { PropType } from 'vue'
-import type { IProduct } from '../../types'
+import type { IProduct, IProductVariant } from '../../types'
 
 export default {
   props: {
@@ -42,7 +43,16 @@ export default {
   },
 
   mounted() {
-    // window.requestIdleCallback(this.loadImages.bind(this))
+    window.requestIdleCallback(this.loadImages.bind(this))
+    messages.listen((_messages, type) => {
+      if (type === MessageType.SELECT_VARIANT) {
+        const variant = _messages[MessageType.SELECT_VARIANT]
+        const i = this.product.images.findIndex((img) => img.url === variant.image.url)
+        if (i > -1) {
+          this.selectImage(i)
+        }
+      }
+    })
   },
 
   methods: {

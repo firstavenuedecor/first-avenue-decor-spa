@@ -4,6 +4,8 @@
   .title {{ product.title }}
   .price-container
     ProductPrice(:product="product")
+  .options-container
+    ProductOptions(:product="product" :selected-variant="selectedVariant" @change="(v) => selectedVariant = v")
   template(v-if="product.availableForSale")
     .qty
       VInput(v-model="qty") Quantity
@@ -17,11 +19,12 @@
 import { cartAdd } from '../../store/cart'
 
 import ProductPrice from './ProductPrice.vue'
+import ProductOptions from './ProductOptions.vue'
 import VInput from '../forms/Input.vue'
 import VButton from '../elements/Button.vue'
 
 import type { PropType } from 'vue'
-import type { IProduct } from '../../types'
+import type { IProduct, IProductVariant } from '../../types'
 
 export default {
   props: {
@@ -33,13 +36,15 @@ export default {
 
   components: {
     ProductPrice,
+    ProductOptions,
     VInput,
     VButton,
   },
 
   data() {
     return {
-      qty: 1,
+      qty: 1 as number,
+      selectedVariant: this.product.variants[0] as IProductVariant,
     }
   },
 
@@ -49,7 +54,7 @@ export default {
 
   methods: {
     async addToCart() {
-      await cartAdd(this.product.variants[0].id, 1)
+      await cartAdd(this.product.variants[0].id, this.qty)
     }
   }
 }

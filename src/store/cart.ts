@@ -31,7 +31,7 @@ export const cartCreate = action(cart, 'cartCreate', async (cart) => {
   await cartCreatePromise.then(() => cartCreatePromise = null)
 })
 
-export const cartAdd = action(cart, 'cartAdd', async (cart, variantId: string, quantity: string) => {
+export const cartAdd = action(cart, 'cartAdd', async (cart, variantId: string, quantity: number) => {
   if (!cartId()) {
     await cartCreate()
   }
